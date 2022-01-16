@@ -9,9 +9,9 @@ html
             ul 
                 each article in articles 
                     li 
-                        h3= article.title
+                        a(href='/articles/'+article.uuid)
+                            h3= article.title
                         small= article.Author.name
-                        p= article.body
             div#root
             script 
                 include scripts/test.js

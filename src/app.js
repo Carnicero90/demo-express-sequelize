@@ -21,6 +21,28 @@ app.get('/', async (_, res) => {
     console.log(articles)
     res.render('index', { articles: articles });
 });
+app.get('/articles/:uuid', async (req, res) => {
+    const uuid = req.params.uuid;
+    try {
+        const article = await Article.findOne({ uuid });
+        res.render('post', {article: article});
+    } catch (err) {
+        console.error(err);
+    }
+})
+app.put('/articles/:uuid', async (req, res) => {
+    const uuid = req.params.uuid;
+    const { title, body } = req.body;
+    try {
+        const article = await Article.findOne({ uuid: uuid });
+        article.update({ title: title, body: body});
+        return res.json(article)
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json(err);
+    }
+})
 app.post('/articles', async (req, res) => {
     const { title, body, author } = req.body;
     try {
@@ -67,7 +89,7 @@ app.get('/articles', async (_, res) => {
 });
 
 
-app.get('/articles/:uuid', async (req, res) => {
+app.get('api/articles/:uuid', async (req, res) => {
     const uuid = req.params.uuid;
     try {
         const article = await Article.findOne({
