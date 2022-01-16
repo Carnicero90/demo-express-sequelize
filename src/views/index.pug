@@ -1,5 +1,5 @@
 html
-    head
+    include layout/head.html
 
     body 
         header
@@ -12,4 +12,8 @@ html
                         h3= article.title
                         small= article.Author.name
                         p= article.body
+            div#root
+            script 
+                include scripts/test.js
+                //- realisticamente ci sono modi piu' eleganti e tipici per organizzare le cartelle, poi vediamo
         footer 
