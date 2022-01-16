@@ -1,0 +1,15 @@
+html
+    head
+
+    body 
+        header
+        main 
+            h1(style="text-align:center") Node/Express 0.1
+            p Bentornato Ale!
+            ul 
+                each article in articles 
+                    li 
+                        h3= article.title
+                        small= article.Author.name
+                        p= article.body
+        footer 

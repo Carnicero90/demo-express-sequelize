@@ -1,0 +1,6 @@
+.env
+src/.env
+src/config
+src/package-lock.json
+src/node_modules
+.docker/mysql/my.cnf

@@ -1,0 +1,38 @@
+version: '3'
+
+services: 
+  #nodejs
+  nodejs: 
+    build:
+      context: .docker/node
+      dockerfile: Dockerfile
+      args:
+          UID: ${UID}
+          GID: ${GID}
+    image: nodejs
+    container_name: ${PROJECT_NAME}_node
+    env_file: .env
+    working_dir: /home/calavera/src
+    volumes: 
+      - ./src:/home/calavera/src:Z
+    ports:
+      - "80:8080"
+    tty: true
+  #MySQL
+  mysql:
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    container_name: ${PROJECT_NAME}_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    #copincollato, non so a cosa serva il secondo volume
+    volumes:
+      - ./.docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf:Z
+      - mysqldata:/var/lib/mysql
+# Volumes
+volumes:
+  mysqldata:
